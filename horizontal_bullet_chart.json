@@ -2,79 +2,44 @@
   "$schema": "https://vega.github.io/schema/vega/v4.json",
   "width": 600,
   "height": 360,
-  "padding": 30,
+  "autosize": "fit",
   "data": [
     {
       "name": "table",
       "values": [
         {
           "title": "item1",
-          "a": 25,
-          "b": 23,
-          "c": 28,
-          "d": 30
-        },
-        {
-          "title": "item2",
           "a": 20,
-          "b": 15,
-          "c": 18,
-          "d": 30
-        },
-        {
-          "title": "item3",
-          "a": 19,
-          "b": 20,
-          "c": 22,
-          "d": 30
-        },
-        {
-          "title": "item4",
-          "a": 27,
-          "b": 20,
+          "b": 28,
           "c": 25,
           "d": 30
         },
         {
-          "title": "item5",
-          "a": 20,
-          "b": 20,
-          "c": 27,
+          "title": "item2",
+          "a": 12,
+          "b": 15,
+          "c": 17,
           "d": 30
         },
         {
-          "title": "item6",
-          "a": 14,
+          "title": "item3",
+          "a": 22,
           "b": 17,
-          "c": 26,
+          "c": 20,
           "d": 30
         },
         {
-          "title": "item7",
+          "title": "item4",
+          "a": 5,
+          "b": 7,
+          "c": 15,
+          "d": 30
+        },
+        {
+          "title": "item5",
           "a": 16,
-          "b": 26,
-          "c": 22,
-          "d": 30
-        },
-        {
-          "title": "item8",
-          "a": 23,
-          "b": 20,
+          "b": 10,
           "c": 16,
-          "d": 30
-        },
-        {
-          "title": "item9",
-          "a": 9,
-          "b": 19,
-          "c": 24,
-          "d": 30
-        },
-        {
-          "title": "item10",
-          "a": 18,
-          "b": 23,
-          "c": 27,
           "d": 30
         }
       ]
@@ -82,32 +47,34 @@
   ],
   "scales": [
     {
-      "name": "xscale",
+      "name": "yscale",
       "type": "band",
       "domain": {
         "data": "table",
         "field": "title"
       },
-      "range": "width",
+      "range": "height",
       "padding": 0.3,
       "round": true
     },
     {
-      "name": "yscale",
+      "name": "xscale",
       "domain": {
         "data": "table",
         "field": "d"
       },
       "nice": true,
-      "range": "height"
+      "range": "width"
     }
   ],
   "axes": [
     {
-      "orient": "bottom",
-      "scale": "xscale",
+      "orient": "left",
+      "scale": "yscale",
       "ticks": false,
-      "labelPadding": 10
+      "domainOpacity":0,
+      "position": -30,
+      "offset":-30
     }
   ],
   "marks": [
@@ -118,20 +85,20 @@
       },
       "encode": {
         "enter": {
-          "x": {
-            "scale": "xscale",
-            "field": "title"
-          },
-          "width": {
-            "scale": "xscale",
-            "band": 1
-          },
           "y": {
             "scale": "yscale",
+            "field": "title"
+          },
+          "height": {
+            "scale": "yscale",
+            "band": 1
+          },
+          "x": {
+            "scale": "xscale",
             "field": "d"
           },
-          "y2": {
-            "scale": "yscale",
+          "x2": {
+            "scale": "xscale",
             "value": 0
           }
         },
@@ -149,26 +116,26 @@
       },
       "encode": {
         "enter": {
-          "x": {
-            "scale": "xscale",
-            "field": "title"
-          },
-          "width": {
-            "scale": "xscale",
-            "band": 1
-          },
           "y": {
             "scale": "yscale",
+            "field": "title"
+          },
+          "height": {
+            "scale": "yscale",
+            "band": 1
+          },
+          "x": {
+            "scale": "xscale",
             "field": "b"
           },
-          "y2": {
-            "scale": "yscale",
+          "x2": {
+            "scale": "xscale",
             "value": 0
           }
         },
         "update": {
           "fill": {
-            "value": "pink"
+            "value": "yellow"
           }
         }
       }
@@ -180,25 +147,25 @@
       },
       "encode": {
         "enter": {
-          "x": {
-            "scale": "xscale",
+          "y": {
+            "scale": "yscale",
             "field": "title",
             "offset": {
               "offset": {
-                "signal": "bandwidth('xscale')/3"
+                "signal": "bandwidth('yscale')/3"
               }
             }
           },
-          "width": {
-            "scale": "xscale",
+          "height": {
+            "scale": "yscale",
             "band": 0.33
           },
-          "y": {
-            "scale": "yscale",
+          "x": {
+            "scale": "xscale",
             "field": "a"
           },
-          "y2": {
-            "scale": "yscale",
+          "x2": {
+            "scale": "xscale",
             "value": 0
           }
         },
@@ -206,7 +173,7 @@
           "fill": [
             {
               "test": "datum['b'] > datum['a']",
-              "value": "red"
+              "value": "pink"
             },
             {
               "value": "blue"
@@ -223,19 +190,17 @@
       },
       "encode": {
         "enter": {
-          "x": {
-            "scale": "xscale",
-            "field": "title"
-          },
-          "dx": {
-            "signal": "bandwidth('xscale')/2"
-          },
           "y": {
             "scale": "yscale",
+            "field": "title",
+            "offset": {"signal": "height/13"}
+          },
+          "x": {
+            "scale": "xscale",
             "field": "a"
           },
-          "dy": {
-            "value": -10
+          "dx": {
+            "value": 12
           },
           "align": {
             "value": "center"
@@ -261,21 +226,21 @@
       "encode": {
         "enter": {
           "stroke": {
-            "value": "#fff"
-          },
-          "x": {
-            "scale": "xscale",
-            "field": "title"
-          },
-          "x2": {
-            "scale": "xscale",
-            "field": "title",
-            "offset": {
-              "signal": "bandwidth('xscale')"
-            }
+            "value": "black"
           },
           "y": {
             "scale": "yscale",
+            "field": "title"
+          },
+          "y2": {
+            "scale": "yscale",
+            "field": "title",
+            "offset": {
+              "signal": "bandwidth('yscale')"
+            }
+          },
+          "x": {
+            "scale": "xscale",
             "field": "c"
           }
         }
