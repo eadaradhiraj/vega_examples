@@ -107,8 +107,8 @@
         "field": "size"
       },
       "range": [
-        300,
-        500
+        0,
+        5000
       ]
     }
   ],
@@ -151,9 +151,6 @@
           },
           "opacity": {
             "value": 0.5
-          },
-          "stroke": {
-            "signal": "scale('color',datum.category)"
           },
           "fill": {
             "signal": "scale('color',datum.category)"
