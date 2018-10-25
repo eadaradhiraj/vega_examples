@@ -94,7 +94,7 @@
       "name": "color",
       "type": "ordinal",
       "domain": {"data": "table", "field": "category"},
-      "range": {"scheme": "category20"}
+      "range": ["green", "blue", "red"]
     },
     {
       "name": "sizescale",
