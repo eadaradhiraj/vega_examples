@@ -1,0 +1,285 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v4.json",
+  "width": 600,
+  "height": 360,
+  "padding": 30,
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "title": "item1",
+          "a": 25,
+          "b": 23,
+          "c": 28,
+          "d": 30
+        },
+        {
+          "title": "item2",
+          "a": 20,
+          "b": 15,
+          "c": 18,
+          "d": 30
+        },
+        {
+          "title": "item3",
+          "a": 19,
+          "b": 20,
+          "c": 22,
+          "d": 30
+        },
+        {
+          "title": "item4",
+          "a": 27,
+          "b": 20,
+          "c": 25,
+          "d": 30
+        },
+        {
+          "title": "item5",
+          "a": 20,
+          "b": 20,
+          "c": 27,
+          "d": 30
+        },
+        {
+          "title": "item6",
+          "a": 14,
+          "b": 17,
+          "c": 26,
+          "d": 30
+        },
+        {
+          "title": "item7",
+          "a": 16,
+          "b": 26,
+          "c": 22,
+          "d": 30
+        },
+        {
+          "title": "item8",
+          "a": 23,
+          "b": 20,
+          "c": 16,
+          "d": 30
+        },
+        {
+          "title": "item9",
+          "a": 9,
+          "b": 19,
+          "c": 24,
+          "d": 30
+        },
+        {
+          "title": "item10",
+          "a": 18,
+          "b": 23,
+          "c": 27,
+          "d": 30
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "xscale",
+      "type": "band",
+      "domain": {
+        "data": "table",
+        "field": "title"
+      },
+      "range": "width",
+      "padding": 0.3,
+      "round": true
+    },
+    {
+      "name": "yscale",
+      "domain": {
+        "data": "table",
+        "field": "d"
+      },
+      "nice": true,
+      "range": "height"
+    }
+  ],
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "xscale",
+      "ticks": false,
+      "labelPadding": 10
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "xscale",
+            "field": "title"
+          },
+          "width": {
+            "scale": "xscale",
+            "band": 1
+          },
+          "y": {
+            "scale": "yscale",
+            "field": "d"
+          },
+          "y2": {
+            "scale": "yscale",
+            "value": 0
+          }
+        },
+        "update": {
+          "fill": {
+            "value": "grey"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "xscale",
+            "field": "title"
+          },
+          "width": {
+            "scale": "xscale",
+            "band": 1
+          },
+          "y": {
+            "scale": "yscale",
+            "field": "b"
+          },
+          "y2": {
+            "scale": "yscale",
+            "value": 0
+          }
+        },
+        "update": {
+          "fill": {
+            "value": "pink"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "xscale",
+            "field": "title",
+            "offset": {
+              "offset": {
+                "signal": "bandwidth('xscale')/3"
+              }
+            }
+          },
+          "width": {
+            "scale": "xscale",
+            "band": 0.33
+          },
+          "y": {
+            "scale": "yscale",
+            "field": "a"
+          },
+          "y2": {
+            "scale": "yscale",
+            "value": 0
+          }
+        },
+        "update": {
+          "fill": [
+            {
+              "test": "datum['b'] > datum['a']",
+              "value": "red"
+            },
+            {
+              "value": "blue"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "item_score",
+      "type": "text",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "xscale",
+            "field": "title"
+          },
+          "dx": {
+            "signal": "bandwidth('xscale')/2"
+          },
+          "y": {
+            "scale": "yscale",
+            "field": "a"
+          },
+          "dy": {
+            "value": -10
+          },
+          "align": {
+            "value": "center"
+          },
+          "fill": {
+            "value": "black"
+          },
+          "text": {
+            "field": "a"
+          },
+          "fontSize": {
+            "value": 12
+          }
+        }
+      }
+    },
+    {
+      "name": "line_d",
+      "type": "rule",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "stroke": {
+            "value": "#fff"
+          },
+          "x": {
+            "scale": "xscale",
+            "field": "title"
+          },
+          "x2": {
+            "scale": "xscale",
+            "field": "title",
+            "offset": {
+              "signal": "bandwidth('xscale')"
+            }
+          },
+          "y": {
+            "scale": "yscale",
+            "field": "c"
+          }
+        }
+      }
+    }
+  ]
+}
