@@ -1,0 +1,181 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v4.json",
+  "width": 600,
+  "height": 360,
+  "padding": 5,
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "category": "label1",
+          "variable1": 20,
+          "variable2": 10,
+          "size": 100
+        },
+        {
+          "category": "label1",
+          "variable1": 35,
+          "variable2": 20,
+          "size": 100
+        },
+        {
+          "category": "label2",
+          "variable1": 5,
+          "variable2": 5,
+          "size": 50
+        },
+        {
+          "category": "label2",
+          "variable1": 10,
+          "variable2": 20,
+          "size": 50
+        },
+        {
+          "category": "label2",
+          "variable1": 30,
+          "variable2": 5,
+          "size": 50
+        },
+        {
+          "category": "label2",
+          "variable1": 30,
+          "variable2": 15,
+          "size": 50
+        },
+        {
+          "category": "label3",
+          "variable1": 10,
+          "variable2": 10,
+          "size": 25
+        },
+        {
+          "category": "label3",
+          "variable1": 15,
+          "variable2": 5,
+          "size": 25
+        },
+        {
+          "category": "label3",
+          "variable1": 35,
+          "variable2": 10,
+          "size": 25
+        },
+        {
+          "category": "label3",
+          "variable1": 20,
+          "variable2": 20,
+          "size": 25
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "xscale",
+      "domain": {
+        "data": "table",
+        "field": "variable1"
+      },
+      "range": "width",
+      "padding": 0.05,
+      "round": true
+    },
+    {
+      "name": "yscale",
+      "domain": {
+        "data": "table",
+        "field": "variable2"
+      },
+      "nice": true,
+      "range": "height"
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "table", "field": "category"},
+      "range": {"scheme": "category20"}
+    },
+    {
+      "name": "sizescale",
+      "type": "linear",
+      "round": true,
+      "nice": false,
+      "zero": true,
+      "domain": {
+        "data": "table",
+        "field": "size"
+      },
+      "range": [
+        300,
+        500
+      ]
+    }
+  ],
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "xscale"
+    },
+    {
+      "orient": "left",
+      "scale": "yscale"
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "update": {
+          "x": {
+            "scale": "xscale",
+            "field": "variable1"
+          },
+          "y": {
+            "scale": "yscale",
+            "field": "variable2"
+          },
+          "size": {
+            "scale": "sizescale",
+            "field": "size"
+          },
+          "shape": {
+            "value": "circle"
+          },
+          "strokeWidth": {
+            "value": 2
+          },
+          "opacity": {
+            "value": 0.5
+          },
+          "stroke": {
+            "signal": "scale('color',datum.category)"
+          },
+          "fill": {
+            "signal": "scale('color',datum.category)"
+          }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "encode": {
+        "enter": {
+          "align": {
+            "value": "center"
+          },
+          "baseline": {
+            "value": "bottom"
+          },
+          "fill": {
+            "value": "#333"
+          }
+        }
+      }
+    }
+  ]
+}
