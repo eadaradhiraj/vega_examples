@@ -1,0 +1,273 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v4.0.json",
+  "config": {
+    "background": "#ffffff"
+  },
+  "padding": 5,
+  "signals": [
+    {
+      "name": "radius",
+      "value": 180
+    },
+    {
+      "name": "radiusRange",
+      "value": [
+        0,
+        180
+      ]
+    }
+  ],
+  "data": [
+    {
+      "name": "table",
+      "values": [
+        {
+          "category": "category1",
+          "amount": 28
+        },
+        {
+          "category": "category2",
+          "amount": 55
+        },
+        {
+          "category": "category3",
+          "amount": 43
+        },
+        {
+          "category": "category4",
+          "amount": 21
+        },
+        {
+          "category": "category5",
+          "amount": 61
+        },
+        {
+          "category": "category6",
+          "amount": 53
+        },
+        {
+          "category": "category7",
+          "amount": 19
+        },
+        {
+          "category": "category8",
+          "amount": 67
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "angle",
+      "type": "point",
+      "range": [
+        6.28,
+        0
+      ],
+      "padding": 0.5,
+      "domain": {
+        "data": "table",
+        "field": "category"
+      }
+    },
+    {
+      "name": "amount_scale",
+      "type": "linear",
+      "range": {
+        "signal": "radiusRange"
+      },
+      "zero": true,
+      "nice": true,
+      "domain": {
+        "data": "table",
+        "field": "amount"
+      }
+    }
+  ],
+  "marks": [
+    {
+      "name": "grid",
+      "from": {
+        "data": "table"
+      },
+      "type": "rule",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "1 * radius * cos(scale('angle', datum.category))"
+          },
+          "y": {
+            "signal": "1 * radius * sin(scale('angle', datum.category))"
+          },
+          "x2": {
+            "value": 0
+          },
+          "y2": {
+            "value": 0
+          },
+          "stroke": {
+            "value": "#ccc"
+          }
+        }
+      }
+    },
+    {
+      "name": "label",
+      "from": {
+        "data": "table"
+      },
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "1.2 * radius * cos(scale('angle', datum.category))"
+          },
+          "y": {
+            "signal": "1.2 * radius * sin(scale('angle', datum.category))"
+          },
+          "baseline": {
+            "value": "bottom"
+          },
+          "text": {
+            "field": "category"
+          },
+          "align": {
+            "value": "center"
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "0.67 * radius * cos(scale('angle', datum.category))"
+          },
+          "y": {
+            "signal": "0.67 * radius  * sin(scale('angle', datum.category))"
+          },
+          "stroke": {
+            "value": "grey"
+          },
+          "strokeWidth": {
+            "value": 0.5
+          },
+          "interpolate": {
+            "value": "linear-closed"
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "0.33 * radius * cos(scale('angle', datum.category))"
+          },
+          "y": {
+            "signal": "0.33 * radius  * sin(scale('angle', datum.category))"
+          },
+          "stroke": {
+            "value": "grey"
+          },
+          "strokeWidth": {
+            "value": 0.5
+          },
+          "interpolate": {
+            "value": "linear-closed"
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "1 * radius * cos(scale('angle', datum.category))"
+          },
+          "y": {
+            "signal": "1 * radius  * sin(scale('angle', datum.category))"
+          },
+          "stroke": {
+            "value": "grey"
+          },
+          "strokeWidth": {
+            "value": 0.5
+          },
+          "interpolate": {
+            "value": "linear-closed"
+          }
+        }
+      }
+    },
+    {
+      "name": "level1",
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "0.33 * radius * cos(scale('angle', 'category1'))"
+          },
+          "y": {
+            "signal": "0.33 * radius * sin(scale('angle', 'category1'))"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "value": "50"
+          },
+          "align": {
+            "value": "center"
+          },
+          "fill": {
+            "value": "#888"
+          }
+        }
+      }
+    },
+    {
+      "type": "line",
+      "from": {
+        "data": "table"
+      },
+      "encode": {
+        "enter": {
+          "x": {
+            "signal": "scale('amount_scale', datum.amount) * cos(scale('angle', datum.category))"
+          },
+          "y": {
+            "signal": "scale('amount_scale', datum.amount)  * sin(scale('angle', datum.category))"
+          },
+          "stroke": {
+            "value": "#B70BFF"
+          },
+          "fill": {
+            "value": "#B70BFF"
+          },
+          "fillOpacity": {
+            "value": 0.1
+          },
+          "strokeWidth": {
+            "value": 2
+          },
+          "interpolate": {
+            "value": "linear-closed"
+          }
+        }
+      }
+    }
+  ]
+}
