@@ -1,20 +1,18 @@
-{
+ {
   "$schema": "https://vega.github.io/schema/vega/v4.0.json",
+  "width": 300,
+  "height": 180,
   "config": {
     "background": "#ffffff"
   },
-  "padding": 5,
   "signals": [
     {
       "name": "radius",
-      "value": 180
+      "update": "(width/100)*(height/100)*10"
     },
     {
       "name": "radiusRange",
-      "value": [
-        0,
-        180
-      ]
+      "update": "(width/100)*(height/100)*10"
     }
   ],
   "data": [
@@ -23,11 +21,11 @@
       "values": [
         {
           "category": "category1",
-          "amount": 28
+          "amount": 150
         },
         {
           "category": "category2",
-          "amount": 55
+          "amount": 95
         },
         {
           "category": "category3",
@@ -35,7 +33,7 @@
         },
         {
           "category": "category4",
-          "amount": 21
+          "amount": 31
         },
         {
           "category": "category5",
@@ -43,15 +41,15 @@
         },
         {
           "category": "category6",
-          "amount": 53
+          "amount": 73
         },
         {
           "category": "category7",
-          "amount": 19
+          "amount": 59
         },
         {
           "category": "category8",
-          "amount": 67
+          "amount": 150
         }
       ]
     }
@@ -73,9 +71,9 @@
     {
       "name": "amount_scale",
       "type": "linear",
-      "range": {
+      "range": [0, {
         "signal": "radiusRange"
-      },
+      }],
       "zero": true,
       "nice": true,
       "domain": {
@@ -227,7 +225,85 @@
             "value": "top"
           },
           "text": {
-            "value": "50"
+            "signal": "50"
+          },
+          "align": {
+            "value": "center"
+          },
+          "fill": {
+            "value": "#888"
+          }
+        }
+      }
+    },
+    {
+      "name": "level2",
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "0.67 * radius * cos(scale('angle', 'category1'))"
+          },
+          "y": {
+            "signal": "0.67 * radius * sin(scale('angle', 'category1'))"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "signal": "100"
+          },
+          "align": {
+            "value": "center"
+          },
+          "fill": {
+            "value": "#888"
+          }
+        }
+      }
+    },
+    {
+      "name": "level3",
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "signal": "1 * radius * cos(scale('angle', 'category1'))"
+          },
+          "y": {
+            "signal": "1 * radius * sin(scale('angle', 'category1'))"
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "signal": "150"
+          },
+          "align": {
+            "value": "center"
+          },
+          "fill": {
+            "value": "#888"
+          }
+        }
+      }
+    },
+    {
+      "name": "level0",
+      "type": "text",
+      "encode": {
+        "update": {
+          "x": {
+            "value": 0
+          },
+          "y": {
+            "value": 0
+          },
+          "baseline": {
+            "value": "top"
+          },
+          "text": {
+            "value": "0"
           },
           "align": {
             "value": "center"
