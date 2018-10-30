@@ -1,7 +1,7 @@
  {
   "$schema": "https://vega.github.io/schema/vega/v4.0.json",
-  "width": 300,
-  "height": 180,
+  "width": 600,
+  "height": 360,
   "config": {
     "background": "#ffffff"
   },
@@ -21,7 +21,7 @@
       "values": [
         {
           "category": "category1",
-          "amount": 150
+          "amount": 90
         },
         {
           "category": "category2",
@@ -52,6 +52,20 @@
           "amount": 150
         }
       ]
+    },
+    {
+      "name": "amt_min_max",
+      "source": "table",
+      "transform": [
+        {"type": "extent", "field": "amount", "signal":"amt_extent"}
+      ]
+    },
+    {
+      "name": "cat_min_max",
+      "source": "table",
+      "transform": [
+        {"type": "collect", "sort": {"field": "category"}, "signal":"catext"}
+      ]
     }
   ],
   "scales": [
@@ -59,8 +73,8 @@
       "name": "angle",
       "type": "point",
       "range": [
-        6.28,
-        0
+        5.10,
+        -1.2
       ],
       "padding": 0.5,
       "domain": {
@@ -104,7 +118,7 @@
             "value": 0
           },
           "stroke": {
-            "value": "#ccc"
+            "value": "#000"
           }
         }
       }
@@ -216,16 +230,16 @@
       "encode": {
         "update": {
           "x": {
-            "signal": "0.33 * radius * cos(scale('angle', 'category1'))"
+            "signal": "0.33 * radius * cos(scale('angle', catext[0].category))"
           },
           "y": {
-            "signal": "0.33 * radius * sin(scale('angle', 'category1'))"
+            "signal": "0.33 * radius * sin(scale('angle', catext[0].category))"
           },
           "baseline": {
             "value": "top"
           },
           "text": {
-            "signal": "50"
+            "signal": "amt_extent[1]/3"
           },
           "align": {
             "value": "center"
@@ -251,7 +265,7 @@
             "value": "top"
           },
           "text": {
-            "signal": "100"
+            "signal": "amt_extent[1]*2/3"
           },
           "align": {
             "value": "center"
@@ -277,7 +291,7 @@
             "value": "top"
           },
           "text": {
-            "signal": "150"
+            "signal": "amt_extent[1]"
           },
           "align": {
             "value": "center"
@@ -328,16 +342,16 @@
             "signal": "scale('amount_scale', datum.amount)  * sin(scale('angle', datum.category))"
           },
           "stroke": {
-            "value": "#B70BFF"
+            "value": "orange"
           },
           "fill": {
-            "value": "#B70BFF"
+            "value": "red"
           },
           "fillOpacity": {
             "value": 0.1
           },
           "strokeWidth": {
-            "value": 2
+            "value": 10
           },
           "interpolate": {
             "value": "linear-closed"
