@@ -1,0 +1,113 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v4.json",
+  "width": 600,
+  "height": 600,
+  "padding": 5,
+  "autosize": "none",
+  "data": [
+    {
+      "name": "tree",
+      "values": [
+        {"name": 0},
+        {"name": 1, "parent": 0},
+        {"name": 2, "parent": 0},
+        {"name": 3, "parent": 0},
+        {"name": "1A", "parent": 1},
+        {"name": "1AA", "size": 2, "parent": "1A"},
+        {"name": "1AB", "size": 2, "parent": "1A"},
+        {"name": "1AC", "size": 2, "parent": "1A"},
+        {"name": "1B", "parent": 1},
+        {"name": "1BA", "size": 2, "parent": "1B"},
+        {"name": "1BB", "size": 2, "parent": "1B"},
+        {"name": "1C", "parent": 1},
+        {"name": "1CA", "size": 2, "parent": "1C"},
+        {"name": "1CB", "size": 2, "parent": "1C"},
+        {"name": "1CC", "size": 2, "parent": "1C"},
+        {"name": "1D", "parent": 1},
+        {"name": "1DA", "size": 2, "parent": "1D"},
+        {"name": "1DB", "size": 2, "parent": "1D"},
+        {"name": "1DC", "size": 2, "parent": "1D"},
+        {"name": "1DD", "size": 2, "parent": "1D"},
+        {"name": "2A", "parent": 2},
+        {"name": "2AA", "size": 2, "parent": "2A"},
+        {"name": "2AB", "size": 2, "parent": "2A"},
+        {"name": "2B", "parent": 2},
+        {"name": "2BA", "size": 2, "parent": "2B"},
+        {"name": "2BB", "size": 2, "parent": "2B"},
+        {"name": "2C", "parent": 2},
+        {"name": "2CA", "size": "2", "parent": "2C"},
+        {"name": "2CB", "size": "2", "parent": "2C"},
+        {"name": "2CC", "size": "2", "parent": "2C"},
+        {"name": "2D", "parent": 2},
+        {"name": "2DA", "size": "2", "parent": "2D"},
+        {"name": "2DB", "size": "2", "parent": "2D"},
+        {"name": "2E", "parent": 2},
+        {"name": "2EA", "size": "2", "parent": "2E"},
+        {"name": "2EB", "size": "2", "parent": "2E"},
+        {"name": "2F", "parent": 2},
+        {"name": "2FA", "size": "2", "parent": "2F"},
+        {"name": "3A", "parent": 3},
+        {"name": "3AA", "size": 2, "parent": "3A"},
+        {"name": "3AB", "size": 2, "parent": "3A"},
+        {"name": "3AC", "size": 2, "parent": "3A"},
+        {"name": "3AD", "size": 2, "parent": "3A"},
+        {"name": "3AE", "size": 2, "parent": "3A"},
+        {"name": "3B", "parent": 3},
+        {"name": "3BA", "size": 2, "parent": "3B"},
+        {"name": "3BB", "size": 2, "parent": "3B"},
+        {"name": "3BC", "size": 2, "parent": "3B"},
+        {"name": "3BD", "size": 2, "parent": "3B"},
+        {"name": "3C", "parent": 3},
+        {"name": "3CA", "size": 2, "parent": "3C"},
+        {"name": "3CB", "size": 2, "parent": "3C"},
+        {"name": "3CC", "size": 2, "parent": "3C"}
+      ],
+      "transform": [
+        {"type": "stratify", "key": "name", "parentKey": "parent"},
+        {
+          "type": "partition",
+          "field": "size",
+          "sort": {"field": "value"},
+          "size": [{"signal": "2 * PI"}, {"signal": "width / 2.5"}],
+          "as": ["a0", "r0", "a1", "r1", "depth", "children"]
+        }
+      ]
+    }
+  ],
+  "scales": [
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "tree", "field": "depth"},
+      "range": {"scheme": "tableau20"}
+    }
+  ],
+  "marks": [
+    {
+      "type": "arc",
+      "from": {"data": "tree"},
+      "encode": {
+        "enter": {
+          "x": {"signal": "width / 2 "},
+          "y": {"signal": "height / 2"},
+          "fill": {"scale": "color", "field": "depth"},
+          "tooltip": {"signal": "datum.name"}
+        },
+        "update": {
+          "startAngle": {"field": "a0"},
+          "endAngle": {"field": "a1"},
+          "innerRadius": {"field": "r0"},
+          "outerRadius": {"field": "r1"},
+          "stroke": {"value": "white"},
+          "strokeWidth": {"value": 5},
+          "zindex": {"value": 0}
+        },
+        "hover": {
+          "stroke": {"value": "red"},
+          "strokeWidth": {"value": 5},
+          "zindex": {"value": 1}
+        }
+      }
+    }
+  ]
+}
