@@ -1,0 +1,44 @@
+{
+    "$schema": "https://vega.github.io/schema/vega/v4.json",
+    "width": 800,
+    "height": 500,
+    "data": [{
+        "name": "telangana_map",
+        "url": "telangana_ac_topo.json",
+        "format": {
+            "type": "topojson",
+            "feature": "telangana_ac"
+        }
+    }],
+    "projections": [{
+        "name": "projection",
+        "size": {
+            "signal": "[width, height]"
+        },
+        "fit": {
+            "signal": "data('telangana_map')"
+        },
+        "type": "mercator"
+    }],
+    "marks": [{
+        "type": "shape",
+        "style": ["geoshape"],
+        "from": {
+            "data": "telangana_map"
+        },
+        "encode": {
+            "update": {
+                "fill": {
+                    "value": "lightgray"
+                },
+                "stroke": {
+                    "value": "white"
+                }
+            }
+        },
+        "transform": [{
+            "type": "geoshape",
+            "projection": "projection"
+        }]
+    }]
+}
